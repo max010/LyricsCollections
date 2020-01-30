@@ -1,3 +1,4 @@
-import { combineEpics } from 'redux-observable';
+import {combineEpics} from 'redux-observable';
+import collectionEpics from './collections';
 
-export default combineEpics() as any;
+export default combineEpics(collectionEpics) as any;

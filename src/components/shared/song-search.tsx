@@ -1,23 +1,32 @@
 import * as React from 'react';
-import { Text, View, StyleSheet, TouchableOpacity, TextInput } from 'react-native';
+import {
+  Text,
+  View,
+  StyleSheet,
+  TouchableOpacity,
+  TextInput,
+} from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
 interface SimpleHeaderProps {
-  scene: any,
-  previous: any,
-  navigation: any
+  scene: any;
+  previous: any;
+  navigation: any;
 }
 
 const SearchHeader = (props: SimpleHeaderProps) => {
-  const { options } = props.scene.descriptor;
-  console.log(props)
+  const {options} = props.scene.descriptor;
   return (
     <View style={styles.container}>
-      <TouchableOpacity style={styles.backIcon} onPress={() => props.navigation.goBack()}>
+      <TouchableOpacity
+        style={styles.backIcon}
+        onPress={() => props.navigation.goBack()}>
         <Icon name="md-arrow-back" size={30} />
       </TouchableOpacity>
-      <TextInput style={styles.searchInput}
-        autoFocus={true}></TextInput>
-      <TouchableOpacity disabled={true} style={styles.searchIcon} onPress={() => { }}>
+      <TextInput style={styles.searchInput} autoFocus={true}></TextInput>
+      <TouchableOpacity
+        disabled={true}
+        style={styles.searchIcon}
+        onPress={() => {}}>
         <Icon name="md-search" size={30} />
       </TouchableOpacity>
     </View>
@@ -28,7 +37,6 @@ export default SearchHeader;
 
 const styles = StyleSheet.create({
   container: {
-
     height: 50,
     flexDirection: 'row',
     justifyContent: 'space-between',
@@ -52,5 +60,5 @@ const styles = StyleSheet.create({
     margin: 5,
     paddingHorizontal: 10,
     fontSize: 18,
-  }
+  },
 });
