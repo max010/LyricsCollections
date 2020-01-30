@@ -1,34 +1,33 @@
 import * as React from 'react';
 import {Text, View, StyleSheet, FlatList, TouchableOpacity} from 'react-native';
 import NavigationRouts from '../../navigation/navigation-routs';
-interface SongsListProps {}
+import {IAppState} from '../../state/app-state';
+import {songsActions, SongsActions} from '../../actions/songs-list';
+import {connect} from 'react-redux';
+import {ISong} from '../../models/song';
 
-const renderOption = (item, props) => (
+interface SongsListProps extends SongsActions {
+  songs: ISong[];
+}
+
+const renderOption = (item: ISong, props) => (
   <TouchableOpacity
-    key={item.id}
+    key={item.number}
     style={styles.optionContainer}
     onPress={() => props.navigation.navigate(NavigationRouts.songsList)}
-    title={item.title}
     activeOpacity={0.8}>
-    <Text style={styles.optionTitle}>{item.name}</Text>
+    <Text style={styles.optionTitle}>{item.number}</Text>
     <View style={styles.detailContainer}>
-      <Text style={styles.optionInfo}>{item.detail}</Text>
+      <Text style={styles.optionInfo}>{item.accord}</Text>
     </View>
   </TouchableOpacity>
 );
 
 const SongsList = (props: SongsListProps) => {
-  const DATA = [
-    {
-      number: '154',
-      name: 'test1',
-      detail: 'detail',
-    },
-  ];
   return (
     <View style={styles.container}>
       <FlatList
-        data={DATA}
+        data={props.songs}
         renderItem={({item}) => renderOption(item, props)}
         keyExtractor={item => item.id}
       />
@@ -36,7 +35,14 @@ const SongsList = (props: SongsListProps) => {
   );
 };
 
-export default SongsList;
+const mapStateToProps = (state: IAppState): SongsListProps =>
+  ({
+    songs: state.collections.songs,
+  } as SongsListProps);
+
+export default connect(mapStateToProps, {
+  ...songsActions,
+})(SongsList);
 
 const styles = StyleSheet.create({
   container: {},

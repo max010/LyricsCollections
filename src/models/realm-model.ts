@@ -1,15 +1,8 @@
-export const VersSchema = {
-  name: 'Vers',
-  properties: {
-    rows: 'string[]',
-  },
-};
-
 export const SongSchema = {
   name: 'Song',
   properties: {
     number: 'int',
-    verses: {type: 'list', objectType: 'Vers'},
+    verses: 'string[]',
   },
 };
 

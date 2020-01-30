@@ -39,17 +39,15 @@ const uploadCollectionToDbEpic = action$ =>
   action$.pipe(
     filter(collectionsActionCreator.uploadToDb.started.match),
     switchMap(action =>
-      uploadJsonToDb
-        .upload(action.payload.collectionName, action.payload.songs)
-        .pipe(
-          map(result => {
-            console.log('write to db');
-            return collectionsActionCreator.uploadToDb.done({
-              params: undefined,
-              result: undefined,
-            });
-          }),
-        ),
+      uploadJsonToDb.upload().pipe(
+        map(result => {
+          console.log('write to db');
+          return collectionsActionCreator.uploadToDb.done({
+            params: undefined,
+            result: undefined,
+          });
+        }),
+      ),
     ),
   );
 

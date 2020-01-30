@@ -6,17 +6,13 @@ const actionCreator = actionCreatorFactory('COLLECTIONS');
 
 export const collectionsActionCreator = {
   getCollections: actionCreator.async<undefined, ICollection[]>('GET'),
-  uploadToDb: actionCreator.async<
-    {collectionName: string; songs: ISong[]},
-    undefined
-  >('UPLOAD'),
+  uploadToDb: actionCreator.async<undefined, undefined>('UPLOAD'),
 };
 
 export const collectionActions = {
   getCollectionsStart: () =>
     collectionsActionCreator.getCollections.started(undefined),
-  uploadToDbStart: (collectionName: string, songs: ISong[]) =>
-    collectionsActionCreator.uploadToDb.started({collectionName, songs}),
+  uploadToDbStart: () => collectionsActionCreator.uploadToDb.started(),
 };
 
 export type CollectionActions = typeof collectionActions;

@@ -4,4 +4,5 @@ import {ISong} from '../models/song';
 
 export interface IAppState {
   collections: ICollectionState;
+  songs: ICollectionState;
 }

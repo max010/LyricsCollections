@@ -1,30 +1,21 @@
-import {
-  CollectionSchema,
-  SongSchema,
-  VersSchema,
-} from './../models/realm-model';
-import {ISong} from '../models/song';
+import {ISong} from './../models/song';
+import {CollectionSchema, SongSchema} from './../models/realm-model';
 import * as Realm from 'realm';
 import {from, of} from 'rxjs';
+let pv3000Json = require('../../song-sources/pv3000.json');
 
 export class UploadJsonToDb {
-  upload = (collectionName: string, songs: ISong[]) => {
-    let ps = songs.map(s => ({
-      number: s.number,
-      verses: [{rows: [...s.verses]}],
-    }));
-
-    console.log(songs, ps);
+  upload = () => {
     return from(
       Realm.open({
-        schema: [CollectionSchema, SongSchema, VersSchema],
+        schema: [CollectionSchema, SongSchema],
         deleteRealmIfMigrationNeeded: true,
       }).then(realm => {
         try {
           return realm.write(() => {
-            return realm.create('Collection', {
-              name: collectionName,
-              songs: [...ps],
+            realm.create('Collection', {
+              name: 'Песнь Возрождения 3000',
+              songs: [...pv3000Json],
             });
           });
         } catch (e) {
@@ -37,11 +28,12 @@ export class UploadJsonToDb {
   getData = () => {
     return from(
       Realm.open({
-        schema: [CollectionSchema, SongSchema, VersSchema],
+        schema: [CollectionSchema, SongSchema],
         deleteRealmIfMigrationNeeded: true,
       }).then(realm => {
-        let Song = JSON.stringify(realm.objects('Song'));
-        console.log('bb', Song);
+        let songs = realm.objects<ISong[]>('Song').filtered('number == 10');
+        // console.log('bb', (song[0] as ISong).accord);
+        console.log('bb', songs);
         return of();
       }),
     );
