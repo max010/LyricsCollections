@@ -1,8 +1,7 @@
-import {ICollectionState} from './collections';
-import {ICollection} from '../models/collection';
-import {ISong} from '../models/song';
+import {ISongsDataState} from './songs-data-state';
+import {IAppSettings} from './app-settings';
 
 export interface IAppState {
-  collections: ICollectionState;
-  songs: ICollectionState;
+  songsData: ISongsDataState;
+  appSettings: IAppSettings;
 }

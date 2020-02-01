@@ -1,6 +1,5 @@
 export interface ICollection {
-  id: string;
+  id: number;
   name: string;
   songsCount: number;
-  author: string;
 }

@@ -1,32 +1,41 @@
 import React from 'react';
-import { View, Text } from 'react-native';
-import { createAppContainer } from 'react-navigation';
-import { createStackNavigator } from 'react-navigation-stack';
-import CollectionList from '../components/collections/collection-list';
-import SongsList from '../components/songs/songs-list';
+import {createAppContainer} from 'react-navigation';
+import {createStackNavigator} from 'react-navigation-stack';
 import NavigationRouts from './navigation-routs';
-import SimpleHeader from '../components/shared/header';
-import SearchHeader from '../components/shared/song-search';
+import CollectionsPage from '../components/collections/collections-page';
+import SongsPage from '../components/songs/songs-page';
+import SongPage from '../components/songs/song-page';
+import SimpleHeader from '../components/shared/simple-header-component';
 
-
-const AppNavigator = createStackNavigator({
-  [NavigationRouts.collections]: {
-    screen: CollectionList,
-
+const AppNavigator = createStackNavigator(
+  {
+    [NavigationRouts.collections]: {
+      screen: CollectionsPage,
+      navigationOptions: {
+        headerTitle: 'Сборники',
+        header: props => <SimpleHeader {...props} />,
+      },
+    },
+    [NavigationRouts.songsList]: {
+      screen: SongsPage,
+      navigationOptions: {
+        header: null,
+      },
+    },
+    [NavigationRouts.song]: {
+      screen: SongPage,
+      navigationOptions: {
+        headerTitle: 'Псалом',
+        header: props => <SimpleHeader {...props} />,
+      },
+    },
   },
-  [NavigationRouts.songsList]: {
-    screen: SongsList,
-    navigationOptions: {
-      headerTitle: 'test',
-      header: (props) => <SearchHeader {...props} />
-    }
-  },
-}, {
+  {
     initialRouteName: NavigationRouts.collections,
     navigationOptions: {
-      header: () => <SimpleHeader />
-    }
-  }
+      header: props => <SimpleHeader {...props} />,
+    },
+  },
 );
 
 export default createAppContainer(AppNavigator);

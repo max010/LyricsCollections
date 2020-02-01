@@ -1,5 +1,4 @@
-import {ISong} from './../models/song';
-import {ICollection} from '../models/collection';
+import {ISong} from '../models/song';
 import actionCreatorFactory from 'typescript-fsa';
 
 const actionCreator = actionCreatorFactory('SONGS');
@@ -11,7 +10,7 @@ export const songsActionCreator = {
 };
 
 export const songsActions = {
-  getCollectionsStart: (page, filter) =>
+  filterSongsStart: (page, filter) =>
     songsActionCreator.filterSongs.started({page, filter}),
 };
 

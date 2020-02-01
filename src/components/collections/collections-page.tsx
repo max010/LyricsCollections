@@ -1,8 +1,11 @@
-import React, {useState, useEffect} from 'react';
+import React, {useEffect} from 'react';
 import {Text, View, StyleSheet, FlatList, TouchableOpacity} from 'react-native';
 import {NavigationStackProp} from 'react-navigation-stack';
 import NavigationRouts from '../../navigation/navigation-routs';
-import {collectionActions, CollectionActions} from '../../actions/collections';
+import {
+  collectionActions,
+  CollectionActions,
+} from '../../actions/collection-actions';
 import {connect} from 'react-redux';
 import {IAppState} from '../../state/app-state';
 import {ICollection} from '../../models/collection';
@@ -14,49 +17,29 @@ interface CollectionListProps extends NavigationStackProp, CollectionActions {
 const renderOption = (item, props) => (
   <TouchableOpacity
     style={styles.optionContainer}
-    id={item.id}
     onPress={() => props.navigation.navigate(NavigationRouts.songsList)}
     activeOpacity={0.8}>
-    <Text style={styles.optionTitle}>{item.name}</Text>
     <View style={styles.detailContainer}>
-      <Text style={styles.optionInfo}>
-        {item.songsCount} / {item.author}
-      </Text>
+      <Text style={styles.optionTitle}>{item.name}</Text>
     </View>
   </TouchableOpacity>
 );
 
 const CollectionList = (props: CollectionListProps) => {
-  useEffect(() => {
-    props.getCollectionsStart();
-  }, []);
   return (
     <View style={styles.container}>
       <FlatList
         data={props.collections}
         renderItem={({item}) => renderOption(item, props)}
-        keyExtractor={item => item.id}
+        keyExtractor={(item, index) => `${index}`}
       />
-
-      <TouchableOpacity
-        style={{width: 200, height: 100, backgroundColor: 'red'}}
-        onPress={() => props.uploadToDbStart()}
-        activeOpacity={0.8}>
-        <Text style={styles.optionTitle}>write</Text>
-      </TouchableOpacity>
-      <TouchableOpacity
-        style={{width: 200, height: 100, backgroundColor: 'blue'}}
-        onPress={() => props.getCollectionsStart()}
-        activeOpacity={0.8}>
-        <Text style={styles.optionTitle}>read</Text>
-      </TouchableOpacity>
     </View>
   );
 };
 
 const mapStateToProps = (state: IAppState): CollectionListProps =>
   ({
-    collections: state.collections.collections,
+    collections: state.songsData.collections,
   } as CollectionListProps);
 
 export default connect(mapStateToProps, {
@@ -68,7 +51,8 @@ const styles = StyleSheet.create({
   optionContainer: {
     backgroundColor: 'white',
     padding: 15,
-    margin: 5,
+    marginHorizontal: 10,
+    marginVertical: 10,
     elevation: 2,
   },
   optionTitle: {
@@ -76,8 +60,9 @@ const styles = StyleSheet.create({
     color: '#666666',
   },
   detailContainer: {
+    marginVertical: 20,
     flexDirection: 'row',
-    marginLeft: 10,
+    alignItems: 'center',
   },
   optionInfo: {
     margin: 5,

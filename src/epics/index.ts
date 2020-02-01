@@ -1,5 +1,6 @@
 import {combineEpics} from 'redux-observable';
-import collectionEpics from './collections';
-import songEpics from './songs';
+import collectionEpics from './collections-epics';
+import songEpics from './songs-epics';
+import loadAppEpics from './load-app-epics';
 
-export default combineEpics(collectionEpics, songEpics) as any;
+export default combineEpics(collectionEpics, songEpics, loadAppEpics) as any;

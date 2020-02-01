@@ -8,13 +8,11 @@ import {
 } from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
 interface SimpleHeaderProps {
-  scene: any;
-  previous: any;
   navigation: any;
+  onChange: (filter: string) => void;
 }
 
 const SearchHeader = (props: SimpleHeaderProps) => {
-  const {options} = props.scene.descriptor;
   return (
     <View style={styles.container}>
       <TouchableOpacity
@@ -22,7 +20,10 @@ const SearchHeader = (props: SimpleHeaderProps) => {
         onPress={() => props.navigation.goBack()}>
         <Icon name="md-arrow-back" size={30} />
       </TouchableOpacity>
-      <TextInput style={styles.searchInput} autoFocus={true}></TextInput>
+      <TextInput
+        onChangeText={props.onChange}
+        style={styles.searchInput}
+        autoFocus={true}></TextInput>
       <TouchableOpacity
         disabled={true}
         style={styles.searchIcon}

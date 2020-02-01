@@ -4,14 +4,16 @@
   "private": true,
   "scripts": {
     "android": "react-native run-android",
+    "clean-android": "cd android & gradlew clean & cd .. & del node_modules/ & npm cache clean --force & npm install & npm start -- --reset-cache",
     "ios": "react-native run-ios",
-    "start": "react-native start",
+    "start": "react-native start --reset-cache",
     "test": "jest",
     "lint": "eslint .",
     "em": "emulator -avd Pixel_3a_API_28"
   },
   "dependencies": {
     "@react-native-community/masked-view": "^0.1.6",
+    "@types/node": "^13.7.0",
     "node": "^10.17.0",
     "react": "16.9.0",
     "react-native": "0.61.5",

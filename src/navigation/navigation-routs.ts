@@ -1,6 +1,7 @@
 const NavigationRouts = {
-    collections: 'Collections',
-    songsList: 'SongsList'
-}
+  collections: 'CollectionsPage',
+  songsList: 'SongsPage',
+  song: 'SongPage',
+};
 
 export default NavigationRouts;

@@ -1,7 +1,4 @@
+import {combineReducers} from 'redux';
+import songsData from './songs-data-reducer';
 
-import { combineReducers } from 'redux'
-import collections from './collections';
-
-
-
-export default combineReducers({ collections });
+export default combineReducers({songsData});
