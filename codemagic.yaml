@@ -1,0 +1,31 @@
+workflows:
+  my-workflow:
+    name: My test workflow
+    instance_type: mac_mini
+    max_build_duration: 60
+    environment:
+      vars:
+        PUBLIC_ENV_VAR: "value here"
+      flutter: stable
+      xcode: 12.3
+    cache:
+      cache_paths:
+        - ~/.pub-cache
+    triggering:
+      events:
+        - push
+      branch_patterns:
+        - pattern: '*'
+          include: true
+          source: true
+      cancel_previous_builds: true
+    scripts:
+      - ...
+    artifacts:
+      - build/**/outputs/**/*.aab
+    publishing:
+      email:
+        recipients:
+          - maksim0206@gmail.com
+      scripts:
+        - echo 'Post-publish script'
